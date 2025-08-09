@@ -211,6 +211,12 @@
 
       const vm = scaffolding.vm;
       window.scaffolding = scaffolding;
+
+      // Hard restart: when project stops, reload the page
+      vm.runtime.on('PROJECT_RUN_STOP', () => {
+        location.reload();
+      });
+
       window.vm = scaffolding.vm;
       window.Scratch = {
         vm,
