@@ -209,14 +209,7 @@
       scaffolding.setup();
       scaffolding.appendTo(appElement);
 
-      \1
-
-vm.runtime.on('PROJECT_RUN_STOP', () => {
-    setTimeout(() => {
-        location.reload();
-    }, 2000);
-});
-
+      const vm = scaffolding.vm;
       window.scaffolding = scaffolding;
       window.vm = scaffolding.vm;
       window.Scratch = {
@@ -330,5 +323,24 @@ vm.runtime.on('PROJECT_RUN_STOP', () => {
     };
     run().catch(handleError);
   </script>
+
+<script>
+(function(){
+  function hook(){
+    try{
+      var s = window.scaffolding;
+      if (!s || !s.vm || !s.vm.runtime) return false;
+      s.vm.runtime.on('PROJECT_RUN_STOP', function(){
+        setTimeout(function(){ location.reload(); }, 2000);
+      });
+      return true;
+    }catch(e){ return false; }
+  }
+  if (!hook()) {
+    var id = setInterval(function(){ if (hook()) clearInterval(id); }, 200);
+  }
+})();
+</script>
+
 </body>
 </html>
