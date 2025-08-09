@@ -209,12 +209,7 @@
       scaffolding.setup();
       scaffolding.appendTo(appElement);
 
-      \1
-
-vm.runtime.on('PROJECT_RUN_STOP', () => {
-    location.reload();
-});
-
+      const vm = scaffolding.vm;
       window.scaffolding = scaffolding;
       window.vm = scaffolding.vm;
       window.Scratch = {
